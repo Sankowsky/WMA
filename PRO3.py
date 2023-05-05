@@ -17,21 +17,22 @@ def loadData():
     X = []
     y = []
     for name in os.listdir(facePath):
+        #print(name)
         X.append(cv2.imread(os.path.join(facePath, name)))
+    n_faces = len(X)
+
     for name in os.listdir(noFacePath):
         img = cv2.imread(os.path.join(noFacePath, name))
         img = cv2.resize(img, (178, 218))
         X.append(img)
 
     X = np.array(X)
-    y = np.zeros(X.shape)
-    n_faces = len(X)
-    y[:n_faces] = 1
+    y = np.zeros(len(X))
+    y[n_faces:] = 1
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     return X_train, X_test, y_train, y_test
 
-    print(y)
 
 def train(X_train, y_train, X_test, y_test):
     model = Sequential()
@@ -61,7 +62,7 @@ def main():
     print("Hello")
 
     X_train, X_test, y_train, y_test = loadData()
-    #train(X_train, y_train, X_test, y_test)
+    train(X_train, y_train, X_test, y_test)
 
 
 
