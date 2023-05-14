@@ -1,4 +1,4 @@
-# Project 3 - face recognition
+# Project 4 - face recognition
 import os
 
 from keras.models import Sequential
